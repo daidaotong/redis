@@ -407,6 +407,15 @@ int selectDb(client *c, int id) {
     return C_OK;
 }
 
+int selectDbByName(client *c, char* name) {
+    int id = -1
+    if (dictSize(server->db_name) == 0 ||
+       (id = dictFind(server->db_name,name)) == NULL)
+        return C_ERR;
+    
+    return selectDb(c,id)
+}
+
 long long dbTotalServerKeyCount() {
     long long total = 0;
     int j;
